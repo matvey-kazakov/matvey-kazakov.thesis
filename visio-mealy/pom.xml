@@ -39,7 +39,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${deploy.dir}/visio-mealy</outputDirectory>
+							<outputDirectory>${deploy.dir}/${artifactId}</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${project.build.directory}</directory>

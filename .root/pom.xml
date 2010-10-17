@@ -10,6 +10,7 @@
 	<modules>
 		<module>../visio-mealy</module>
 		<module>../visio-moore</module>
+		<module>../visio-bubble</module>
 	</modules>
 	<properties>
 		<deploy.dir>../deploy</deploy.dir>
@@ -34,7 +35,7 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>${deploy.dir}</directory>
+							<directory>${deploy.dir}/${artifactId}</directory>
 							<includes>
 								<include>**/*</include>
 							</includes>
