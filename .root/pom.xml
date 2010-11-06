@@ -14,6 +14,7 @@
 		<module>../visio-multi</module>
 		<module>../automatons</module>
 		<module>../visio-heapsort</module>
+		<module>../visio-prime</module>
 	</modules>
 	<properties>
 		<deploy.dir>../deploy</deploy.dir>
