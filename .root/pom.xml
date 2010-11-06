@@ -11,6 +11,9 @@
 		<module>../visio-mealy</module>
 		<module>../visio-moore</module>
 		<module>../visio-bubble</module>
+		<module>../visio-multi</module>
+		<module>../automatons</module>
+		<module>../visio-heapsort</module>
 	</modules>
 	<properties>
 		<deploy.dir>../deploy</deploy.dir>
@@ -20,6 +23,7 @@
 	</properties>
 
 	<build>
+		<pluginManagement>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -30,12 +34,33 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<id>copy-to-deploy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${deploy.dir}</outputDirectory>
+							<finalName>${project.artifactId}</finalName>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.4.1</version>
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>${deploy.dir}/${artifactId}</directory>
+							<directory>${deploy.dir}/${project.artifactId}</directory>
 							<includes>
 								<include>**/*</include>
 							</includes>
@@ -45,6 +70,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		</pluginManagement>
 	</build>
 
 

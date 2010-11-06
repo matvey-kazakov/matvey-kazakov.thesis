@@ -143,10 +143,6 @@ public class Automaton {
     private void goToAndPerformAction(int newstate) {
         g.state = newstate;
         switch (newstate) {
-            case 0: 	// Начальное состояние
-                g.state = 1;
-                break;
-
             case 1:
                 g.j = 1;
                 break;

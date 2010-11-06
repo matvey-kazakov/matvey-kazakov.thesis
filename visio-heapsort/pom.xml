@@ -3,9 +3,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>matvey.thesis</groupId>
-	<artifactId>visio-bubble</artifactId>
+	<artifactId>visio-heapsort</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>Visio: Bubble</name>
+	<name>Visio: HeapSort (animated)</name>
 
 	<parent>
 		<groupId>matvey</groupId>
@@ -23,7 +23,10 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>matvey.thesis.visio.bubble.Visio</mainClass>
+							<mainClass>matvey.thesis.visio.heapsort.VisioA</mainClass>
+							<addClasspath>true</addClasspath>
+							<classpathLayoutType>custom</classpathLayoutType>
+							<customClasspathLayout>${artifact.artifactId}.${artifact.extension}</customClasspathLayout>
 						</manifest>
 					</archive>
 				</configuration>
@@ -33,5 +36,14 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencies>
+		<dependency>
+			<groupId>matvey.thesis</groupId>
+			<artifactId>automatons</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
 </project>

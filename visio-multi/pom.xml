@@ -3,9 +3,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>matvey.thesis</groupId>
-	<artifactId>visio-bubble</artifactId>
+	<artifactId>visio-multi</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>Visio: Bubble</name>
+	<name>Visio: Backpack (Multiple)</name>
 
 	<parent>
 		<groupId>matvey</groupId>
@@ -23,7 +23,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>matvey.thesis.visio.bubble.Visio</mainClass>
+							<mainClass>matvey.thesis.visio.multi.Visio</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

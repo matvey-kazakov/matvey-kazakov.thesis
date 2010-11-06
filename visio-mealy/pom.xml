@@ -5,7 +5,7 @@
 	<groupId>matvey.thesis</groupId>
 	<artifactId>visio-mealy</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>Visio: Mealy automaton</name>
+	<name>Visio: Backpack (Mealy)</name>
 
 	<parent>
 		<groupId>matvey</groupId>
@@ -29,36 +29,7 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>${versions.plugin.resources}</version>
-				<executions>
-					<execution>
-						<id>copy-to-deploy</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${deploy.dir}/${artifactId}</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${project.build.directory}</directory>
-									<includes>
-										<include>${project.build.finalName}.jar</include>
-									</includes>
-								</resource>
-								<resource>
-									<directory>.</directory>
-									<includes>
-										<include>run.bat</include>
-										<include>run.sh</include>
-										<include>visio.html</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
+				<artifactId>maven-assembly-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
