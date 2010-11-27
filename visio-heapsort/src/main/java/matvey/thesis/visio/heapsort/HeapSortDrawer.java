@@ -62,7 +62,7 @@ public class HeapSortDrawer extends JPanel implements AnimationDrawer {
         picturePanel.add(this.treePanel, BorderLayout.CENTER);
         add(picturePanel, BorderLayout.CENTER);
         add(messagePanel, BorderLayout.SOUTH);
-        picturePanel.add(DrawerUtils.createArrayPanel("Массив", BoxLayout.X_AXIS, array), BorderLayout.SOUTH);
+        picturePanel.add(DrawerUtils.createArrayPanel("Массив", BoxLayout.X_AXIS, array, true), BorderLayout.SOUTH);
         // update array with up-to-date values
         updateArray();
         messageLabel = new JLabel();
@@ -246,7 +246,7 @@ public class HeapSortDrawer extends JPanel implements AnimationDrawer {
          */
         public GraphPanel() {
             prefferedWidth = treeWidth + DrawerUtils.DIAMETER;
-            prefferedHeight = treeHeight + DrawerUtils.DIAMETER;
+            prefferedHeight = treeHeight + DrawerUtils.DIAMETER * 3 / 2;
             setPreferredSize(new Dimension(prefferedWidth, prefferedHeight));
             setBackground(DrawerUtils.COLOR_BACKGROUND);
         }
@@ -302,7 +302,7 @@ public class HeapSortDrawer extends JPanel implements AnimationDrawer {
                 DrawerUtils.drawNode(g, point, color,
                         state == Y7A_SWAP_ANIMATION && (i == globals.c || i == globals.old_c)
                                 || state == Y4A_TRANSFER_ANIMATION && (i == 0 || i == globals.hsize)
-                                ? "" : String.valueOf(globals.a[i]), choice == i);
+                                ? "" : String.valueOf(globals.a[i]), choice == i, i);
             }
             drawEdges(g, points);
             drawAnimation(points, step, g);
@@ -327,9 +327,9 @@ public class HeapSortDrawer extends JPanel implements AnimationDrawer {
                     int x2 = (int)(to.x - deltaX);
                     int y2 = (int)(to.y - deltaY);
                     DrawerUtils.drawNode(g, new Point(x1, y1), DrawerUtils.COLOR_CURRENT,
-                            String.valueOf(globals.a[toIdx]), false);
+                            String.valueOf(globals.a[toIdx]), false, -1);
                     DrawerUtils.drawNode(g, new Point(x2, y2), DrawerUtils.COLOR_SELECT,
-                            String.valueOf(globals.a[fromIdx]), false);
+                            String.valueOf(globals.a[fromIdx]), false, -1);
                 }
             }
         }
@@ -355,7 +355,7 @@ public class HeapSortDrawer extends JPanel implements AnimationDrawer {
         private Point[] shiftPoints() {
             Dimension size = getSize();
             int shiftX = (size.width - prefferedWidth) / 2;
-            int shiftY = (size.height - prefferedHeight) / 2;
+            int shiftY = (size.height - prefferedHeight) / 2 + DrawerUtils.DIAMETER / 2;
             // moving point to position tree in the center of the panel
             Point[] points = new Point[HeapSortDrawer.this.points.length];
             for (int i = 0; i < points.length; i++) {

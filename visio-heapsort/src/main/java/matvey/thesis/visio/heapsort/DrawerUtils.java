@@ -5,6 +5,7 @@
 package matvey.thesis.visio.heapsort;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
@@ -16,7 +17,7 @@ import java.awt.geom.Rectangle2D;
 class DrawerUtils {
     // =============== Drawing constants ========================
     protected static final Color COLOR_BORDER = Color.black;
-    protected static final Color COLOR_SELECT = Color.lightGray;
+    protected static final Color COLOR_SELECT = new Color(0xdddddd);
     protected static final Color COLOR_CURRENT = Color.gray;
     protected static final Color COLOR_BACKGROUND = Color.white;
     protected static final Font plainFont = new Font("Arial", Font.PLAIN, 11);
@@ -32,7 +33,7 @@ class DrawerUtils {
      * @param labelArray array to fill with new labels.
      * @return created panel with labels
      */
-    protected static JPanel createArrayPanel(String label, int axis, JLabel[] labelArray) {
+    protected static JPanel createArrayPanel(String label, int axis, JLabel[] labelArray, boolean indexes) {
         String labelPlacement =  BorderLayout.NORTH;
         JPanel superpanel = new JPanel(new BorderLayout());
         JPanel panel = new JPanel();
@@ -40,7 +41,17 @@ class DrawerUtils {
         for (int i = 0; i < labelArray.length; i++) {
             labelArray[i] = new JLabel(" ");
             labelArray[i].setPreferredSize(new Dimension(DIAMETER, DIAMETER));
-            panel.add(createCell(labelArray[i]));
+            JPanel arrayCell = createCell(labelArray[i]);
+			if (indexes) {
+            	JPanel p = new JPanel();
+            	p.setLayout(new BoxLayout(p, axis == BoxLayout.X_AXIS ? BoxLayout.Y_AXIS : BoxLayout.X_AXIS));
+            	p.add(creatIndexCell(i+1));
+                p.add(arrayCell);
+                p.setOpaque(false);
+                panel.add(p);
+            } else {
+            	panel.add(arrayCell);
+            }
         }
         superpanel.setBackground(COLOR_BACKGROUND);
         panel.setBackground(COLOR_BACKGROUND);
@@ -49,6 +60,17 @@ class DrawerUtils {
         superpanel.add(panel, BorderLayout.CENTER);
         return superpanel;
     }
+
+	public static JPanel creatIndexCell(int i) {
+		JLabel label = new JLabel("" + i);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(label, BorderLayout.CENTER);
+        panel.setOpaque(false);
+        label.setOpaque(false);
+        label.setFont(plainFont);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        return panel;
+	}
 
     /**
      * Creates transparent label with border
@@ -96,7 +118,7 @@ class DrawerUtils {
         int x2 = (int)(to.x - RADIUS * xCoeff);
         int y2 = (int)(to.y - RADIUS * yCoeff);
         g.drawLine(x1, y1, x2, y2);
-        double alpha = Math.PI / 6; // 30 ��������
+        double alpha = Math.PI / 6; // 30 градусов
         double arrowLength = distance / 5;
         drawArrowPart(g, x2, y2, alpha, xCoeff, yCoeff, arrowLength);
         drawArrowPart(g, x2, y2, -alpha, xCoeff, yCoeff, arrowLength);
@@ -127,8 +149,9 @@ class DrawerUtils {
      * @param point center point of the node
      * @param color fill color
      * @param str text to draw inside node
+     * @param index	index of node in the array
      */
-    protected static void drawNode(Graphics g, Point point, Color color, String str, boolean bold) {
+    protected static void drawNode(Graphics g, Point point, Color color, String str, boolean bold, int index) {
         int x = point.x - RADIUS;
         int y = point.y - RADIUS;
         if (color != null) {
@@ -149,6 +172,13 @@ class DrawerUtils {
         Rectangle2D bounds = g.getFontMetrics().getStringBounds(str, g);
         g.drawString(str, (int)(point.x - bounds.getWidth() / 2),
                 (int)(point.y - bounds.getY() - bounds.getHeight() / 2));
+        if (index >= 0) {
+        	str = "" + (index + 1);
+            bounds = g.getFontMetrics().getStringBounds(str, g);
+            int shift = index == 0 ? 0 : index % 2 != 0 ? -1 : 1;
+	        g.drawString(str, (int)(point.x - bounds.getWidth() / 2 + shift * RADIUS / 2),
+	                (int)(point.y - bounds.getY() - bounds.getHeight() / 2 - bounds.getHeight() - RADIUS / 2));
+        }
         if (savedStroke != null) {
             g2d.setStroke(savedStroke);
         }
