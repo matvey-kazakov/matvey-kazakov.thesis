@@ -53,13 +53,13 @@ public final class Solution {
         }
 
         // Определение набора предметов
-        int sum = N;
-        if (T[K][sum] == 1) {
+        j = N;
+        if (T[K][N] == 1) {
             // Решение существует
             for (i = K; i >= 1; i--) {
-                if (T[i][sum] != T[i - 1][sum]) {
+                if (T[i - 1][j] == 0) {
                     positions.add(i);
-                    sum -= M[i - 1];
+                    j -= M[i - 1];
                 }
             }
             // Решение найдено

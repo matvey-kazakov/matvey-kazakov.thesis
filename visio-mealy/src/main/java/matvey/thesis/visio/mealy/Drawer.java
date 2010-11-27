@@ -37,8 +37,8 @@ public class Drawer extends JPanel {
     private static final String MESSAGE_STATE_7_ALT = "Состояние 7: Выбор обратного хода: альтернатива";
     private static final String MESSAGE_STATE_7 = "Состояние 7: Выбор обратного хода";
     private static final String MESSAGE_STATE_8 = "Состояние 8: Следующая ячейка найдена";
-    private static final String MESSAGE_STATE_9 = "Состояние 9: Конец. Искомый абор не существует";
-    private static final String MESSAGE_STATE_10 = "Состояние 10: Конец. Искомый набор найден: {0}";
+    private static final String MESSAGE_STATE_9 = "Состояние 9: Конец. Искомый набор не существует";
+    private static final String MESSAGE_STATE_10 = "Состояние 9: Конец. Искомый набор найден: {0}";
 
     private Globals globals;
 
@@ -186,7 +186,7 @@ public class Drawer extends JPanel {
                 } else {
                     newMessage = MESSAGE_STATE_5_FAIL;
                 }
-                selectCell(previous = T[globals.i - 1][globals.sum], COLOR_CURRENT);
+                selectCell(previous = T[globals.i - 1][globals.j], COLOR_CURRENT);
                 break;
             case 7:
                 if (globals.j >= globals.M[globals.i - 1]) {
@@ -194,32 +194,33 @@ public class Drawer extends JPanel {
                 } else {
                     newMessage = MESSAGE_STATE_7;
                 }
-                selectCell(previous = T[globals.i][globals.sum], COLOR_CURRENT);
-                selectCell(prev_sel1 = T[globals.i - 1][globals.sum], COLOR_SELECT);
-                if (globals.sum >= globals.M[globals.i - 1]) {
-                    selectCell(prev_sel2 = T[globals.i - 1][globals.sum - globals.M[globals.i - 1]], COLOR_SELECT);
+                selectCell(previous = T[globals.i][globals.j], COLOR_CURRENT);
+                selectCell(prev_sel1 = T[globals.i - 1][globals.j], COLOR_SELECT);
+                if (globals.j >= globals.M[globals.i - 1]) {
+                    selectCell(prev_sel2 = T[globals.i - 1][globals.j - globals.M[globals.i - 1]], COLOR_SELECT);
                 }
                 break;
             case 8:
                 newMessage = MESSAGE_STATE_8;
-                selectCell(previous = T[globals.i - 1][globals.sum], COLOR_CURRENT);
+                selectCell(previous = T[globals.i - 1][globals.j], COLOR_CURRENT);
                 break;
             case 9:
-                newMessage = MESSAGE_STATE_9;
-                break;
-            case 10:
-                String itemsString = "[";
-                boolean first = true;
-                for (Integer pos: globals.positions) {
-                    if (first) {
-                        first = false;
-                    } else {
-                        itemsString += ", ";
-                    }
-                    itemsString += globals.M[pos.intValue()];
-                }
-                itemsString += "]";
-                newMessage = MessageFormat.format(MESSAGE_STATE_10 , new Object[]{itemsString});
+            	if (globals.result) {
+	                String itemsString = "[";
+	                boolean first = true;
+	                for (Integer pos: globals.positions) {
+	                    if (first) {
+	                        first = false;
+	                    } else {
+	                        itemsString += ", ";
+	                    }
+	                    itemsString += globals.M[pos.intValue()];
+	                }
+	                itemsString += "]";
+	                newMessage = MessageFormat.format(MESSAGE_STATE_10 , new Object[]{itemsString});
+            	} else {
+                    newMessage = MESSAGE_STATE_9;
+            	}
                 break;
         }
         messageLabel.setText(newMessage);

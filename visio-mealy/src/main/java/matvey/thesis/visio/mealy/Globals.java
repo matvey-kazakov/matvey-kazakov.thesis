@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class Globals {
 
     // Состояние автомата
-    public int state, i, j, K, N, sum;
+    public int state, i, j, K, N;
     public int[][] T;
     public int[] M;
     public boolean result;
@@ -41,7 +41,6 @@ public class Globals {
             }
         i = -1;
         j = -1;
-        sum = 0;
         result = false;
     }
 

@@ -52,7 +52,7 @@ public class Automaton {
                     g.j = 1;
                     g.state = 4;
                 } else {
-                    g.sum = g.N;
+                    g.j = g.N;
                     g.state = 5;
                 }
                 break;
@@ -71,7 +71,7 @@ public class Automaton {
                 break;
 
             case 5: // Конец заполнения таблицы
-                if (g.T[g.K][g.sum] == 1) { // Решение найдено
+                if (g.T[g.K][g.j] == 1) { // Решение найдено
                     g.i = g.K;
                     g.state = 6;    // Делать обратный ход
                 } else {
@@ -85,14 +85,14 @@ public class Automaton {
                     g.state = 7;
                 } else {
                     g.result = true;
-                    g.state = 10;
+                    g.state = 9;
                 }
                 break;
 
             case 7: // Поиск очередного предмета
-                if (g.T[g.i][g.sum] != g.T[g.i - 1][g.sum]) {
+                if (g.T[g.i - 1][g.j] == 0) {
                     g.positions.add(g.i - 1);
-                    g.sum -= g.M[g.i - 1];
+                    g.j -= g.M[g.i - 1];
                     g.state = 8;
                 } else {
                     g.state = 8;
@@ -126,7 +126,7 @@ public class Automaton {
      * Проверяет, что автомат уже остановился.
      */
     public boolean isFinished() {
-        return g.state == 9 || g.state == 10;
+        return g.state == 9;
     }
 
 
