@@ -7,4 +7,4 @@ echo JAVA_HOME is not set. Trying to use default PATH
 SET RUNJAVA=java.exe
 :run
 SET JAVA_OPTS=-Dswing.defaultlaf=com.sun.java.swing.plaf.windows.WindowsLookAndFeel
-%RUNJAVA% %JAVA_OPTS% -jar visio.jar
+%RUNJAVA% %JAVA_OPTS% -jar visio-moore.jar

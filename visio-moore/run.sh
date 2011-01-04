@@ -7,4 +7,4 @@ else
     RUNJAVA=java
 fi
 
-$RUNJAVA -jar visio.jar
+$RUNJAVA -jar visio-moore.jar

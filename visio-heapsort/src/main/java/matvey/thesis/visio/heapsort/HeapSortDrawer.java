@@ -82,10 +82,8 @@ public class HeapSortDrawer extends JPanel implements AnimationDrawer {
             drawerState = s;
             drawerStep = step;
         }
-        synchronized (drawingThread) {
-            // notify drawing thread that it can perform drawing
-            drawingThread.notify();
-        }
+        // notify drawing thread that it can perform drawing
+        drawingThread.notifyDraw();
     }
 
     /**
@@ -392,21 +390,36 @@ public class HeapSortDrawer extends JPanel implements AnimationDrawer {
             super("Drawing Thread");
             setDaemon(true);
         }
+        
+        boolean needDraw = false;
 
-        /**
+		/**
+		 * Notify about redraw
+		 */
+        public void notifyDraw() {
+        	synchronized (this) {
+            	needDraw = true;
+            	notify();
+			}
+		}
+
+		/**
          * Performs drawing cycle.
          */
         public void run() {
             while (!interrupted()) {
                 synchronized (this) {
-                    // waiting for changes
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        break;
-                    }
+                	if (!needDraw) {
+	                    // waiting for changes
+	                    try {
+	                        wait();
+	                    } catch (InterruptedException e) {
+	                        break;
+	                    }
+                	}
                     // redraw picture
                     performDraw();
+            		needDraw = false;
                 }
             }
         }

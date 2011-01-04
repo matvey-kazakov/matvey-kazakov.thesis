@@ -41,7 +41,7 @@ public class Visio extends JPanel implements ActionListener {
     private static final int[] DELAYS = new int[]{10, 20, 50, 100, 250, 500, 1000};
 
     // Глобальные переменные
-    private Globals globals = new Globals(new int[]{4, 5, 3, 7, 6}, 16);
+    private Globals globals = new Globals(new int[]{5, 6, 2, 7, 8}, 16);
     // Автомат
     private Automaton automaton = new Automaton(globals);
     // Формирователь иллюстраций и комментариев
@@ -124,6 +124,7 @@ public class Visio extends JPanel implements ActionListener {
         if (source == buttonStep) {
             automaton.makeStep();
             updateButtonStep();
+            updateAutoButton();
             drawer.redraw();
         } else if (source == buttonRestart) {
             globals.init();
@@ -155,6 +156,7 @@ public class Visio extends JPanel implements ActionListener {
 
     private void updateButtonStep() {
         buttonStep.setEnabled(!automaton.isFinished());
+        auto = auto && !automaton.isFinished();
     }
 
     private void updateDelayButtonsState() {
@@ -168,6 +170,7 @@ public class Visio extends JPanel implements ActionListener {
 
     private void updateAutoButton() {
         buttonAuto.setText(auto ? LABEL_STOP : LABEL_AUTO);
+        buttonAuto.setEnabled(!automaton.isFinished());
     }
 
     /**

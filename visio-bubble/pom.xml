@@ -2,20 +2,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>matvey.thesis</groupId>
-	<artifactId>visio-bubble</artifactId>
+	<groupId>matvey.thesis.visio</groupId>
+	<artifactId>bubble</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>Visio: Bubble</name>
 
 	<parent>
-		<groupId>matvey</groupId>
-		<artifactId>thesis</artifactId>
-		<relativePath>../.root</relativePath>
+		<groupId>matvey.thesis</groupId>
+		<artifactId>visio</artifactId>
+		<relativePath>../.visio</relativePath>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<build>
-		<finalName>visio</finalName>
+		<finalName>visio-bubble</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>

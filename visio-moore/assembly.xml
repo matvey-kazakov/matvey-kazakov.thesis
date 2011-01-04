@@ -7,7 +7,7 @@
 	<files>
 		<file>
 			<source>${project.build.directory}/${project.build.finalName}.jar</source>
-			<destName>visio.jar</destName>
+			<destName>visio-moore.jar</destName>
 		</file>
 		<file>
 			<source>run.bat</source>
